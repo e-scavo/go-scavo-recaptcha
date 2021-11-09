@@ -54,7 +54,7 @@ func (c *Recaptcha) Verify(response string) error {
 	if err = json.NewDecoder(resp.Body).Decode(&body); err != nil {
 		return err
 	}
-
+	fmt.Printf("body: %+v\n", body)
 	if !body.Success {
 		return errRequestFailure
 	}
