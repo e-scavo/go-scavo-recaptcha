@@ -3,6 +3,7 @@ package recaptcha
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -65,7 +66,11 @@ func (c *Recaptcha) Verify(response string) error {
 		}
 
 		if body.Action != c.action {
-			return errMismatchAction
+			eAction := fmt.Errorf("%s | Sent: [%s] | Expected [%s]",
+				errMismatchAction,
+				body.Action,
+				c.action)
+			return eAction
 		}
 	}
 
